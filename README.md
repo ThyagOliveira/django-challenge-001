@@ -77,3 +77,51 @@
       "body": "<div><p>Second paragraph</p><p>Third paragraph</p></div>"
     }
     ```
+
+## Instructions
+
+##### Configure virtualenv
+```shell
+$ python -m venv venv
+$ source venv/bin/activate
+$ (venv) pip install -r requirements.txt
+```
+
+##### Environment Variables
+Rename `.env.example` to `.env` and configure:
+- [DATABASE_URL](https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DATABASES)
+- [DEBUG](https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-DEBUG)
+- [SECRET_KEY](https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-SECRET_KEY).
+
+Generate Secret Key
+```shell
+$ python
+$ import secrets;secrets.token_urlsafe(20)
+```
+
+Install [Docker](https://docs.docker.com/get-docker/)
+##### Create base volume
+```shell
+$ docker volume create base-volume
+```
+##### Start container
+```shell
+$ docker-compose -f docker-compose-dev.yml up
+```
+##### Container access
+```shell
+$ docker-compose -f docker-compose-dev.yml exec app bash
+```
+##### Create super user
+```shell
+$ python manage.py createsuperuser
+```
+
+## API Documentation
+
+##### Swagger
+- Access `http://localhost:8000/api/docs`
+- Authentication
+  - Use endpoint `auth/login` to get the token
+  - Put the token in `Authorize` as follows: `Bearer token-here`
+  
